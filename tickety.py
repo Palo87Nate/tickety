@@ -5,17 +5,15 @@ from models.ticket import Ticket
 from models.event import Event
 from forms import EventForm, TicketForm
 from os import environ
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 import uuid
 from models.base_model import Session as DBSession
+import io
+from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-
-# app.jinja_env.trim_blocks = True
-# app.jinja_env.lstrip_blocks = True
-
-#help?
+app.config['SECRET_KEY'] = 'nate_palo_87'
+CORS(app)
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
@@ -60,7 +58,17 @@ def create_ticket_view():
         
         finally:
             session.close()      
-    return render_template('tickety.html', event_form=event_form, ticket_form=ticket_form, cache_id=uuid.uuid4())    
+    return render_template('tickety.html', event_form=event_form, ticket_form=ticket_form, cache_id=uuid.uuid4())
+
+@app.route('/qrcode/<ticket_id>')
+def get_qrcode(ticket_id):
+    # Retrieve the ticket from the database
+    ticket = DBSession.query(Ticket).filter_by(id=ticket_id).first()
+    if ticket:
+        # Return the QR code image
+        return send_file(io.BytesIO(ticket.qrcode), mimetype='image/png')
+    else:
+        return "Ticket not found", 404
 
 @app.route('/ticket', methods=['GET', 'POST'], strict_slashes=False)
 def ticket():

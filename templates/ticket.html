@@ -10,6 +10,9 @@
 	<link rel="icon" href="../static/images/icon.png?{{ cache_id }}" />
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="static/scripts/index.js?{{ cache_id }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
     <title>Ticket Confirmation</title>
 </head>
 <body>
@@ -18,18 +21,39 @@
 		<div id="api_status" class="available"></div>
 	</header>
     <h1 class="center">Your Ticket</h1>
-    <div class="center green-outline container">
-			<div class="column">
-                <h1>{{ ticket.event_name }}</h1>
+    <div class="green-outline container row white" id="ticket">
+			<div class="column content green">
+                <h1 class="center">{{ ticket.event_name }}</h1>
                 <p>Date : {{ event.date }}</p>
                 <p>Time : {{ event.time }}</p>
                 <p>Venue : {{ event.venue }}</p>
                 <p>$ {{ ticket.price }}</p>
 			</div>
-            <div class="column white">
-				<h1>QR Code</h1> 
+            <div class="column security center">
+				<img class="qr-code" src="{{ url_for('get_qrcode', ticket_id=ticket.id) }}" alt="QR Code">
             </div>
 	</div>
+	<!-- <div class="center">
+		<button class="btn" onclick="generatePDF()">Download PDF</button>
+	</div> -->
+	
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('ticket');
+
+            // Initialize jsPDF
+			const pdf = new window.jspdf.jsPDF();
+            
+            // Add ticket to PDF
+            pdf.html(element, {
+                callback: function (pdf) {
+                    pdf.save('event-ticket.pdf');
+                },
+                x: 10,
+                y: 10
+            });
+        }
+    </script>
 	<footer>
 		<p>Tickety2024 by DevPalo</p>
 	</footer>
