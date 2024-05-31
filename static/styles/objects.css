@@ -1,0 +1,26 @@
+.btn {
+    display: inline-block;
+    padding: 10px;
+    background: #6b8e23ff;
+    color: #FFFFFF;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 18px;
+    height: 38px;
+    width: auto;
+    box-shadow: none;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #6edf77;
+}
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.white-text {
+    color: #FFFFFF;
+}

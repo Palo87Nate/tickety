@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../static/styles/common.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/header.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/footer.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/objects.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/ticket.css?{{ cache_id }}">
+	<link rel="icon" href="../static/images/icon.png?{{ cache_id }}" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="static/scripts/index.js?{{ cache_id }}"></script>
+    <title>Ticket Confirmation</title>
+</head>
+<body>
+    <header>
+		<div class="logo"></div>
+		<div id="api_status" class="available"></div>
+	</header>
+    <h1 class="center">Your Ticket</h1>
+    <div class="center green-outline container">
+			<div class="column">
+                <h1>{{ ticket.event_name }}</h1>
+                <p>Date : {{ event.date }}</p>
+                <p>Time : {{ event.time }}</p>
+                <p>Venue : {{ event.venue }}</p>
+                <p>$ {{ ticket.price }}</p>
+			</div>
+            <div class="column white">
+				<h1>QR Code</h1> 
+            </div>
+	</div>
+	<footer>
+		<p>Tickety2024 by DevPalo</p>
+	</footer>
+</body>
+</html>

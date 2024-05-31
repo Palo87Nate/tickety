@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../static/styles/common.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/header.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/footer.css?{{ cache_id }}">
+	<link rel="stylesheet" type="text/css" href="../static/styles/objects.css?{{ cache_id }}">
+	<link rel="icon" href="../static/images/icon.png?{{ cache_id }}" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="static/scripts/index.js?{{ cache_id }}"></script>
+    <title>Tickety</title>
+</head>
+<body>
+    <header>
+		<div class="logo"></div>
+		<div id="api_status" class="available"></div>
+	</header>
+    <div class="container">
+        <h1>Welcome to Tickety</h1>
+        <p>Your one-stop platform for creating and managing events and tickets.</p>
+        <button class="btn"><a href="{{ url_for('create_ticket_view') }}" class="white-text">Create a Ticket</a></button>
+    </div>
+    <footer>
+		<p>Tickety</p>
+	</footer>
+</body>
+</html>
