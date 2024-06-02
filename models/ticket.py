@@ -3,8 +3,9 @@
 import models
 from models.base_model import BaseModel, Base
 import sqlalchemy
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils import EmailType
 import uuid
 import qrcode
 import base64
@@ -14,20 +15,23 @@ from io import BytesIO
 class Ticket(Base, BaseModel):
     """Representation of a ticket"""
     __tablename__ = 'tickets'
-    id = Column(String(60), primary_key=True, default=lambda: str(uuid.uuid4()))
-    event_name = Column(String(60), ForeignKey('events.name'), nullable=False)
-    #ticket_number = Column(String(20), nullable=False)
-    price = Column(Integer, nullable=False)
-    qrcode = Column(String(500), nullable=False)
+    id = Column(String(60), primary_key=True, default=uuid.uuid4)
+    fname = Column(String(60), nullable=False)
+    lname = Column(String(60), nullable=False)
+    email = Column(EmailType, nullable=False)
+    pnumber = Column(String(10), nullable=False)
+    qrcode = Column(LargeBinary, nullable=False)
+    event_id = Column(String(60), ForeignKey('events.id'), nullable=False)
     event = relationship("Event", back_populates="tickets")
 
-    def __init__(self, event_name="", price=None):
+    def __init__(self, fname="", lname="", email="", pnumber="", event_id=None):
         """Initializes a ticket"""
         super().__init__()
-        self.id = str(uuid.uuid4())
-        self.event_name = event_name
-        #self.ticket_number = ticket_number
-        self.price = price
+        self.fname = fname
+        self.lname = lname
+        self.email = email
+        self.pnumber = pnumber
+        self.event_id = event_id
         self.qrcode = self.generate_qrcode()
 
     def generate_qrcode(self):

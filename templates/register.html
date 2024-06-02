@@ -1,16 +1,14 @@
 {% extends "base.html" %}
-
-{% block title %}Your Ticket - My App{% endblock %}
-
+{% block title %}Register - Tickety{% endblock %}
 {% block content %}
-<h1 class="center">Please Provide Your Details</h1>
 <div class="center">
-	<form method="POST" action="{{ url_for('buy_ticket_route') }}">
-		{{ form.hidden_tag() }}
-		<p>{{ form.fname.label }}<br>{{ form.fname(class="form-text") }}</p>
-        <p>{{ form.lname.label }}<br>{{ form.lname(class="form-text") }}</p>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }}
+        <p>{{ form.name.label }}<br>{{ form.name(class="form-text") }}</p>
+        <p>{{ form.password.label }}<br>{{ form.password(class="form-text") }}</p>
         <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
         <p>{{ form.pnumber.label }}<br>{{ form.pnumber(class="form-text") }}</p>
+        <p>{{ form.logo.label }}<br>{{ form.logo }}</p>
         <div class="center">
 			<p class="btn">{{ form.submit() }}</p>
 		</div>

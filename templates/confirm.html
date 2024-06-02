@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Your Ticket - My App{% endblock %}
+
+{% block content %}
+<h1 class="center">Thank you for trusting Tickety, find your downloadable eticket below</h1>
+<div class="container row white" id="ticket">
+    <div class="column content green">
+        <h1 class="center">{{ ticket.event_name }}</h1>
+        <p>Date : {{ event.date }}</p>
+        <p>Time : {{ event.time }}</p>
+        <p>Venue : {{ event.venue }}</p>
+        <p>$ {{ ticket.price }}</p>
+    </div>
+    <div class="column security center">
+        <img class="qr-code" src="{{ url_for('get_qrcode', ticket_id=ticket.id) }}" alt="QR Code">
+    </div>
+</div>
+<!-- <div class="center">
+		<button class="btn" onclick="generatePDF()">Download PDF</button>
+	</div> -->
+
+<script>
+    function generatePDF() {
+        const element = document.getElementById('ticket');
+
+        // Initialize jsPDF
+        const pdf = new window.jspdf.jsPDF();
+
+        // Add ticket to PDF
+        pdf.html(element, {
+            callback: function (pdf) {
+                pdf.save('event-ticket.pdf');
+            },
+            x: 10,
+            y: 10
+        });
+    }
+</script>
+{% endblock %}
