@@ -5,7 +5,7 @@
 {% block content %}
 <h1 class="center">Start Your Event!</h1>
 <div class="center">
-	<form method="POST" action="{{ url_for('create_event') }}">
+	<form method="POST" action="{{ url_for('routes.create_event_view') }}">
 		{{ form.hidden_tag() }}
 		<p>{{ form.ename.label }}<br>{{ form.ename(class="form-text") }}</p>
         <p>{{ form.date.label }}<br>{{ form.date(class="form-text") }}</p>

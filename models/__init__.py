@@ -12,7 +12,8 @@ session_factory = sessionmaker(bind=engine)
 Session = scoped_session(session_factory)
 
 # Import all models here
-from .base_model import Base
+from .base_model import Base, BaseModel
+from .user import User
 from .event import Event
 from .ticket import Ticket
 

@@ -2,13 +2,12 @@
 {% block title %}Register - Tickety{% endblock %}
 {% block content %}
 <div class="center">
-    <form method="POST" action="{{ url_for('register') }}">
+    <form method="POST" action="{{ url_for('routes.register') }}">
         {{ form.hidden_tag() }}
         <p>{{ form.name.label }}<br>{{ form.name(class="form-text") }}</p>
         <p>{{ form.password.label }}<br>{{ form.password(class="form-text") }}</p>
         <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
-        <p>{{ form.pnumber.label }}<br>{{ form.pnumber(class="form-text") }}</p>
-        <p>{{ form.logo.label }}<br>{{ form.logo }}</p>
+        <p>{{ form.pnumber.label }}<br>{{ form.pnumber(class="form-text") }}</p>       </p>
         <div class="center">
 			<p class="btn">{{ form.submit() }}</p>
 		</div>

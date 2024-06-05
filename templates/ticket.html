@@ -5,7 +5,7 @@
 {% block content %}
 <h1 class="center">Please Provide Your Details</h1>
 <div class="center">
-	<form method="POST" action="{{ url_for('buy_ticket_route') }}">
+	<form method="POST" action="{{ url_for('routes.buy_ticket_route') }}">
 		{{ form.hidden_tag() }}
 		<p>{{ form.fname.label }}<br>{{ form.fname(class="form-text") }}</p>
         <p>{{ form.lname.label }}<br>{{ form.lname(class="form-text") }}</p>

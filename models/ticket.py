@@ -1,27 +1,21 @@
-#!/usr/bin/python
-"""The Ticket"""
-import models
-from models.base_model import BaseModel, Base
-import sqlalchemy
+from .base_model import BaseModel
 from sqlalchemy import Column, String, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import EmailType
-import uuid
 import qrcode
-import base64
 import io
-from io import BytesIO
 
-class Ticket(Base, BaseModel):
+class Ticket(BaseModel):
     """Representation of a ticket"""
     __tablename__ = 'tickets'
-    id = Column(String(60), primary_key=True, default=uuid.uuid4)
+
     fname = Column(String(60), nullable=False)
     lname = Column(String(60), nullable=False)
     email = Column(EmailType, nullable=False)
     pnumber = Column(String(10), nullable=False)
     qrcode = Column(LargeBinary, nullable=False)
     event_id = Column(String(60), ForeignKey('events.id'), nullable=False)
+
     event = relationship("Event", back_populates="tickets")
 
     def __init__(self, fname="", lname="", email="", pnumber="", event_id=None):
@@ -36,7 +30,7 @@ class Ticket(Base, BaseModel):
 
     def generate_qrcode(self):
         """Generate a QR code for the ticket"""
-        qr_data = f"Ticket ID: {self.id}, Event: {self.event_name}, Price: {self.price}"
+        qr_data = f"Ticket ID: {self.id}, Event ID: {self.event_id}"
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
