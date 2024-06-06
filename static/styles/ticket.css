@@ -1,18 +1,22 @@
 .row {
     display: flex;
     justify-content: space-between;
+    width: fit-content;
 }
 .column {
     /* Optional */
     padding: 10px;
-    margin: auto;
     /* border-right: 1px solid #ccc; */
+}
+
+.ticket {
+    margin: auto;
+    border-radius: 20px;
 }
 
 .content {
     width: 70%;
-    border-top-right-radius: 3%;
-    border-bottom-right-radius: 3%;
+    border-radius: 20px;
 }
 
 .security {

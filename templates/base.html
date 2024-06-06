@@ -5,15 +5,15 @@
     <title>{% block title %}Tickety{% endblock %}</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/common.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/footer.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/objects.css?{{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/ticket.css?{{ cache_id }}">
-    <link rel="icon" href="../static/images/icon.png?{{ cache_id }}" />
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css?{{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/objects.css?{{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/ticket.css?{{ cache_id }}">
+    <script type="text/javascript" src="/static/scripts/index.js?{{ cache_id }}"></script>
+    <link rel="icon" href="/static/images/icon.png?{{ cache_id }}" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">T</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,11 @@
 
     <div class="">
         {% block content %}
+        <!-- {% for message in get_flashed_messages() %}
+    <p class="">{{ message }}</p>
+    {% endfor %}
+    <p>{{ form.errors }}</p>
+    </div> -->
         {% endblock %}
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -51,7 +56,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <footer>
+    <footer class="footer-dark">
         <p>Tickety2024 by DevPalo</p>
     </footer>
 </body>

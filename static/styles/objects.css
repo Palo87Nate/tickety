@@ -1,3 +1,21 @@
+footer {
+    background: #6b8e23ff!important;
+    height: auto;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    color: #ffffff!important;
+}
+footer p {
+    text-align: center;
+}
+
+nav {
+    position: fixed;
+    background: #6b8e23ff!important;
+    margin-bottom: 20px;
+}
+
 .btn {
     display: inline-block;
     padding: 10px;
@@ -6,14 +24,14 @@
     border-radius: 4px;
     transition: background-color 0.3s;
     font-size: 18px;
-    height: 38px;
+    height: auto;
     width: auto;
     box-shadow: none;
     border: none;
 }
 
 .btn:hover {
-    background-color: #6edf77;
+    background-color: #e1f3e2;
 }
 
 a {

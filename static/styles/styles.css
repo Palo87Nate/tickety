@@ -6,8 +6,7 @@ body {
 }
 
 body .container {
-    max-width: 800px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 h1 {
@@ -43,10 +42,6 @@ form {
     border: 1px solid #6b8e23ff;
 }
 
-label {
-    width: 50%;
-}
-
 input {
     height: 40px;
     box-sizing: border-box;
@@ -73,12 +68,25 @@ input[type=time] {
     margin-bottom: 20px;
 }
 
+.event-gallery {
+    width: 100%;
+    display: flex;
+}
+
 .event-card {
-    width: 20%;
-    margin: auto;
+    width: 50%;
     background: #6b8e23ff;
     color: white;
     padding: 10px;
+    margin: 10px;
     border-radius: 4px;
-    border: none;
+    float: left;
+}
+
+.event-card:hover {
+    box-shadow: 0 0 10px rgb(238, 137, 137);
+}
+
+ul {
+    list-style: none;
 }

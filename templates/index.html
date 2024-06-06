@@ -3,9 +3,18 @@
 {% block title %}Your Ticket - My App{% endblock %}
 
 {% block content %}
+{% if current_user.is_authenticated %}
+<div class="container">
+	<h1>Welcome back to Tickety</h1>
+	<p>Your one-stop platform for creating and managing your event tickets.</p>
+	<a href="{{ url_for('routes.create_event_view') }}"><button class="btn">New Event</button></a>
+</div>
+{% else %}
 <div class="container">
 	<h1>Welcome to Tickety</h1>
-	<p>Your one-stop platform for creating and managing events and tickets.</p>
-	<button class="btn"><a href="{{ url_for('routes.create_event_view') }}" class="white-text">Create a Ticket</a></button>
+	<p>Make your event reservations in only a few clicks</p>
+	<a href="{{ url_for('routes.browse_events') }}"><button class="btn">Find An Event</button></a>
 </div>
+{% endif %}
+
 {% endblock %}

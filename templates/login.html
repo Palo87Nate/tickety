@@ -7,12 +7,8 @@
         <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
         <p>{{ form.password.label }}<br>{{ form.password(class="form-text") }}</p>
         <div class="center">
-			<p class="btn">{{ form.submit() }}</p>
+			{{ form.submit(class="btn") }}
 		</div>
     </form>
-    {% for message in get_flashed_messages() %}
-    <p class="">{{ message }}</p>
-    {% endfor %}
-    <p>{{ form.errors }}</p>
 </div>
 {% endblock %}

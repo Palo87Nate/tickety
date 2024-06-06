@@ -1,11 +1,12 @@
-from flask import render_template, redirect, url_for, flash, request, Blueprint
+from flask import render_template, redirect, url_for, flash, send_file, request, Blueprint
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Event, Ticket, Session as session, storage
 from .models.storage import create_event
-from .forms import RegistrationForm, LoginForm, EventForm
+from .forms import RegistrationForm, LoginForm, EventForm, TicketForm
 from sqlalchemy.orm.exc import NoResultFound
 from math import ceil
 import uuid
+import io
 
 bp = Blueprint('routes', __name__)
 
@@ -69,7 +70,63 @@ def create_event_view():
         except Exception as e:
             flash(f'An error occurred: {e}', 'danger')
     
-    return render_template('event.html', form=form, cache_id=uuid.uuid4())
+    return render_template('create-event.html', form=form, cache_id=uuid.uuid4())
+
+@bp.route('/event/<event_id>')
+def event_details(event_id):
+    event = session.query(Event).get(event_id)
+    if event:
+        return render_template('event.html', event=event)
+    else:
+        return render_template('event_not_found.html'), 404
+
+
+@bp.route('/buy-ticket/<event_id>', methods=['GET', 'POST'], strict_slashes=False)
+def buy_ticket(event_id):
+    form = TicketForm(request.form)
+    event = session.query(Event).get(event_id)
+    if event and form.validate_on_submit():
+        fname = form.fname.data
+        lname = form.lname.data
+        email = form.email.data
+        pnumber = form.pnumber.data
+        event_id = event_id
+        ticket = Ticket(fname=fname, lname=lname, email=email, pnumber=pnumber, event_id=event_id)
+            
+        try:
+            session.add(ticket)
+            session.commit()
+            session.refresh(ticket)
+            ticket_id = ticket.id
+            return redirect(url_for('routes.confirm_ticket', event_id=event_id, ticket_id=ticket_id))
+        
+        except Exception as e:
+            session.rollback()
+            raise e
+        
+        finally:
+            session.close()      
+    return render_template('ticket.html', form=form, event=event, cache_id=uuid.uuid4())
+
+@bp.route('/confirm-ticket/<event_id>/<ticket_id>')
+def confirm_ticket(event_id, ticket_id):
+    print("Request args:", request.args)
+    event = session.query(Event).get(event_id)
+    ticket = session.query(Ticket).get(ticket_id)
+    session.close()
+    
+    # Pass event and ticket details to the confirmation template
+    return render_template('confirm.html', event=event, ticket=ticket)
+
+@bp.route('/qrcode/<ticket_id>')
+def get_qrcode(ticket_id):
+    # Retrieve the ticket from the database
+    ticket = session.query(Ticket).filter_by(id=ticket_id).first()
+    if ticket:
+        # Return the QR code image
+        return send_file(io.BytesIO(ticket.qrcode), mimetype='image/png')
+    else:
+        return "", 404
 
 @bp.route('/browse-events')
 def browse_events():
@@ -79,7 +136,7 @@ def browse_events():
         if current_user.is_authenticated:
             query = session.query(Event).filter(Event.user_id == current_user.id)
         else:
-            query = Event.query
+            query = session.query(Event)
         
         total_events = query.count()
         events = query.offset((page - 1) * per_page).limit(per_page).all()

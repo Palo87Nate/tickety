@@ -1,23 +1,18 @@
 {% extends "base.html" %}
-
 {% block title %}Your Ticket - My App{% endblock %}
-
 {% block content %}
 <h1 class="center">Please Provide Your Details</h1>
 <div class="center">
-	<form method="POST" action="{{ url_for('routes.buy_ticket_route') }}">
+	<form method="POST" action="{{ url_for('routes.buy_ticket', event_id=event.id) }}">
 		{{ form.hidden_tag() }}
 		<p>{{ form.fname.label }}<br>{{ form.fname(class="form-text") }}</p>
         <p>{{ form.lname.label }}<br>{{ form.lname(class="form-text") }}</p>
         <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
         <p>{{ form.pnumber.label }}<br>{{ form.pnumber(class="form-text") }}</p>
+        <p>{{ event.id }}</p>
         <div class="center">
-			<p class="btn">{{ form.submit() }}</p>
+			{{ form.submit(class="btn") }}
 		</div>
     </form>
-    {% for message in get_flashed_messages() %}
-    <p class="">{{ message }}</p>
-    {% endfor %}
-    <p>{{ form.errors }}</p>
 </div>
 {% endblock %}
