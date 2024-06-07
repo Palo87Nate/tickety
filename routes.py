@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import render_template, redirect, url_for, flash, send_file, request, Blueprint
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Event, Ticket, Session as session, storage
@@ -5,6 +6,7 @@ from .models.storage import create_event
 from .forms import RegistrationForm, LoginForm, EventForm, TicketForm
 from sqlalchemy.orm.exc import NoResultFound
 from math import ceil
+from datetime import datetime
 import uuid
 import io
 
@@ -12,7 +14,8 @@ bp = Blueprint('routes', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    events = session.query(Event).all()
+    return render_template('index.html', events=events)
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -52,8 +55,10 @@ def logout():
 @bp.route('/create-event', methods=['GET', 'POST'], strict_slashes=False)
 def create_event_view():
     form = EventForm(request.form)
-
     if form.validate_on_submit():
+        file = request.files['emage']
+        if file and file.filename != '':
+            image_data = file.read()
         try:
             create_event(
                 ename=form.ename.data,
@@ -63,6 +68,7 @@ def create_event_view():
                 places=form.places.data,
                 details=form.details.data,
                 t_price=form.t_price.data,
+                emage=image_data,
                 user_id=current_user.id
             )
             flash('Event created successfully!', 'success')
@@ -76,7 +82,11 @@ def create_event_view():
 def event_details(event_id):
     event = session.query(Event).get(event_id)
     if event:
-        return render_template('event.html', event=event)
+        sold_tickets = session.query(Ticket).filter_by(event_id=event_id).count()
+        remaining_tickets = event.places - sold_tickets
+        formatted_date = event.date.strftime('%d-%b')
+        formatted_time = event.time.strftime('%H:%M')
+        return render_template('event.html', event=event, formatted_date=formatted_date, remaining_tickets=remaining_tickets, formatted_time=formatted_time)
     else:
         return render_template('event_not_found.html'), 404
 
@@ -113,10 +123,12 @@ def confirm_ticket(event_id, ticket_id):
     print("Request args:", request.args)
     event = session.query(Event).get(event_id)
     ticket = session.query(Ticket).get(ticket_id)
+    formatted_date = event.date.strftime('%d-%b')
+    formatted_time = event.time.strftime('%H:%M')
     session.close()
     
     # Pass event and ticket details to the confirmation template
-    return render_template('confirm.html', event=event, ticket=ticket)
+    return render_template('confirm.html', event=event, ticket=ticket, formatted_date=formatted_date, formatted_time=formatted_time)
 
 @bp.route('/qrcode/<ticket_id>')
 def get_qrcode(ticket_id):
@@ -125,6 +137,15 @@ def get_qrcode(ticket_id):
     if ticket:
         # Return the QR code image
         return send_file(io.BytesIO(ticket.qrcode), mimetype='image/png')
+    else:
+        return "", 404
+    
+@bp.route('/emage/<event_id>')
+def get_emage(event_id):
+    event = session.query(Event).filter_by(id=event_id).first()
+    if event:
+        # Return the QR code image
+        return send_file(io.BytesIO(event.emage), mimetype='image/png')
     else:
         return "", 404
 

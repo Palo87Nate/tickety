@@ -1,31 +1,34 @@
 {% extends "base.html" %}
 {% block title %}Events - Tickety{% endblock %}
 {% block content %}
-<h1>Browse Events</h1>
-<ul class="event-gallery">
-    {% for event in events %}
-    
-        <li>
-            <a href="{{ url_for('routes.event_details', event_id=event.id) }}">
-            <div class="event-card">
-                <h2>{{ event.ename }}</h2>
-                <p><strong>Date:</strong> {{ event.date }}</p>
-                <p><strong>Location:</strong> {{ event.venue }}</p>
-                <p>{{ event.description }}</p>
+<div class="mid">
+    <h1 class="center">Browse Events</h1>
+    <div class="list">
+        {% for event in events %}
+        <a class="event-card" href="{{ url_for('routes.event_details', event_id=event.id) }}">
+            <div>
+                <div class="card-image"
+                    style="background-image: url('{{ url_for('routes.get_emage', event_id=event.id) }}');">
+                </div>
+                <div class="green card-text center">
+                    <p>{{ event.ename }}</p>
+                    <p><strong>Price:</strong> ${{ event.t_price }}</p>
+                </div>
             </div>
         </a>
-        </li>
-    
-    {% else %}
-    <li>No events available.</li>
-    {% endfor %}
-</ul>
-<div>
-    {% if page > 1 %}
-    <a href="{{ url_for('routes.browse_events', page=page-1) }}">Previous</a>
-    {% endif %}
-    Page {{ page }} of {{ total_pages }}
-    {% if page < total_pages %} <a href="{{ url_for('routes.browse_events', page=page+1) }}">Next</a>
+        {% else %}
+        <li>No events available.</li>
+        {% endfor %}
+    </div>
+
+    <div class="pagination center">
+        {% if page > 1 %}
+        <a href="{{ url_for('routes.browse_events', page=page-1) }}">Previous</a>
         {% endif %}
+        Page {{ page }} of {{ total_pages }}
+        {% if page < total_pages %} <a href="{{ url_for('routes.browse_events', page=page+1) }}">Next</a>
+            {% endif %}
+    </div>
 </div>
+
 {% endblock %}

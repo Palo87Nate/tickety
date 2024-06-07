@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from datetime import datetime
 import uuid
 from sqlalchemy import Column, String, DateTime, create_engine

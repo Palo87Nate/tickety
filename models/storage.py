@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from .base_model import BaseModel, engine
 from .user import User
 from .event import Event
@@ -23,12 +24,12 @@ def register(name, email, pnumber):
     finally:
         session.close()
 
-def create_event(ename, date, time, venue, places, details, t_price, user_id):
+def create_event(ename, date, time, venue, places, details, t_price, user_id, emage):
     session = Session()
     
     try:
         # Create a new event with the provided details
-        event = Event(ename=ename, date=date, time=time, venue=venue, places=places, details=details, t_price=t_price, user_id=user_id)
+        event = Event(ename=ename, date=date, time=time, venue=venue, places=places, details=details, t_price=t_price, user_id=user_id, emage=emage)
         session.add(event)
         session.commit()
         return event

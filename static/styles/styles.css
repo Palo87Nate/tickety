@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+}
+
 body {
     margin: 0;
     color: #484848;
@@ -5,8 +9,22 @@ body {
     font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body .container {
+.main {
+    min-height: calc(100vh - 226px);
+}
+
+.mid {
     margin: auto;
+}
+
+.bottom {
+    margin-bottom: 0;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
 }
 
 h1 {
@@ -16,7 +34,7 @@ h1 {
 
 p {
     font-size: 1.2rem;
-    line-height: 1.6;
+    line-height: 1.0;
 }
 
 .center {
@@ -42,11 +60,17 @@ form {
     border: 1px solid #6b8e23ff;
 }
 
+.round-corners {
+    border-radius: 20px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
 input {
     height: 40px;
     box-sizing: border-box;
-    
-
 }
 
 input[type=text] {
@@ -56,35 +80,68 @@ input[type=text] {
 
 input[type=number] {
     font-size: 16px;
-    width: 40% !important
+    width: 85% !important
 }
 
 input[type=date],
 input[type=time] {
-    width: 35% !important
+    width: 85% !important
 }
 
 .form-element {
     margin-bottom: 20px;
 }
 
-.event-gallery {
+.list {
+    gap: 3%;
+    height: auto;
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
 }
 
 .event-card {
-    width: 50%;
-    background: #6b8e23ff;
+    display: block;
     color: white;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.pagination {
+    clear: both;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.card-text {
     padding: 10px;
-    margin: 10px;
-    border-radius: 4px;
-    float: left;
+    display: flex;
+    justify-content: space-between;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.price-tag {
+    width: 30%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: flex;
+    padding: auto;
 }
 
 .event-card:hover {
-    box-shadow: 0 0 10px rgb(238, 137, 137);
+    box-shadow: 0 0 10px #6b8e23ff;
+    transform: scale(1.07);
 }
 
 ul {

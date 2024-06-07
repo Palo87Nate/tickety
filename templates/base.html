@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('routes.index') }}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('routes.browse_events') }}">Events</a>
+                </li>
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('routes.logout') }}">Logout</a>
@@ -39,16 +42,13 @@
             </ul>
         </div>
     </nav>
-
-    <div class="">
+    <main class="main">
         {% block content %}
-        <!-- {% for message in get_flashed_messages() %}
-    <p class="">{{ message }}</p>
-    {% endfor %}
-    <p>{{ form.errors }}</p>
-    </div> -->
         {% endblock %}
-    </div>
+    </main>
+    <footer>
+        <p>Tickety2024 by DevPalo</p>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="static/scripts/index.js?{{ cache_id }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
@@ -56,9 +56,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <footer class="footer-dark">
-        <p>Tickety2024 by DevPalo</p>
-    </footer>
 </body>
 
 </html>

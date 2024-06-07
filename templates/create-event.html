@@ -3,19 +3,28 @@
 {% block title %}Your Ticket - My App{% endblock %}
 
 {% block content %}
-<h1 class="center">Start Your Event!</h1>
-<div class="center">
-	<form method="POST" action="{{ url_for('routes.create_event_view') }}">
-		{{ form.hidden_tag() }}
-		<p>{{ form.ename.label }}<br>{{ form.ename(class="form-text") }}</p>
-        <p>{{ form.date.label }}<br>{{ form.date(class="form-text") }}</p>
-        <p>{{ form.time.label }}<br>{{ form.time(class="form-text") }}</p>
-        <p>{{ form.venue.label }}<br>{{ form.venue(class="form-text") }}</p>
-		<p>{{ form.places.label }}<br>{{ form.places(class="form-text") }}</p>
-        <p>{{ form.t_price.label }}<br>{{ form.t_price(class="form-text") }}</p>
-		<p>{{ form.details.label }}<br>{{ form.details(class="form-text") }}</p>
-        <div class="center">
-			{{ form.submit(class="btn") }}
-		</div>
-    </form>
+<div class="mid">
+	<h1 class="center">Start Your Event!</h1>
+	<div class="center">
+		<form method="POST" action="{{ url_for('routes.create_event_view') }}" enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+			<p>{{ form.ename.label }}<br>{{ form.ename(class="form-text") }}</p>
+			<div class="small-row">
+				<p class="half">{{ form.date.label }}<br>{{ form.date(class="form-text") }}</p>
+				<p class="half">{{ form.time.label }}<br>{{ form.time(class="form-text") }}</p>
+			</div>
+			<p>{{ form.venue.label }}<br>{{ form.venue(class="form-text") }}</p>
+			<div class="small-row">
+				<p>{{ form.places.label }}<br>{{ form.places(class="form-text") }}</p>
+				<p>{{ form.t_price.label }}<br>{{ form.t_price(class="form-text") }}</p>
+			</div>
+			<p>{{ form.details.label }}<br>{{ form.details(class="form-text") }}</p>
+			<p>{{ form.emage.label }}<br>{{ form.emage }}</p>
+			<div class="center">
+				{{ form.submit(class="btn") }}
+			</div>
+		</form>
+	</div>
+</div>
+
 {% endblock %}

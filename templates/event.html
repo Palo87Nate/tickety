@@ -1,17 +1,41 @@
 {% extends "base.html" %}
-{% block title %}{{ event.ename }} - My App Events{% endblock %}
+{% block title %}{{ event.ename }} - Events{% endblock %}
 
 {% block content %}
-<h1 class="center"><strong>{{ event.ename }}</strong></h1>
-<div class="center">
-	<p><strong>Date:</strong> {{ event.date }}</p>
-	<p><strong>Time:</strong> {{ event.time }}</p>
-	<p><strong>Venue:</strong> {{ event.venue }}</p>
-	<p><strong>Places Available:</strong> {{ event.places }}</p>
-	<p><strong>Details:</strong> {{ event.details }}</p>
-	<p><strong>Ticket Price:</strong> $ {{ event.t_price }}</p>
-	<div class="container">
-		<a href="{{ url_for('routes.buy_ticket', event_id=event.id, ticket_id=ticket_id) }}"><button class="btn">Buy Ticket</button></a>
+<div class="mid">
+	<h1 class="center"><strong>{{ event.ename }}</strong></h1>
+	<div class="center">
+		<div class="row">
+			<div class="half">
+				<img class="event-img" src="{{ url_for('routes.get_emage', event_id=event.id) }}"
+					alt="{{ event.ename }}">
+			</div>
+			<div class="half">
+				<div class="column">
+					<div class="green-outline padding-15 round-corners">
+						<h2>{{ event.details }}</h2>
+						<p><strong>Date:</strong> {{ formatted_date }}</p>
+						<p><strong>Time:</strong> {{ formatted_time }}</p>
+						<p><strong>Venue:</strong> {{ event.venue }}</p>
+						<p><strong>Places Available:</strong> {{ remaining_tickets }}</p>
+						<p><strong>Ticket Price:</strong> $ {{ event.t_price }}</p>
+					</div>
+					<div class="">
+						<div class="center">
+							{% if remaining_tickets > 0 %}
+							<a href="{{ url_for('routes.buy_ticket', event_id=event.id, ticket_id=ticket_id) }}">
+								<div class="btn">Buy Ticket</div>
+							</a>
+							{% else %}
+							<p><strong>Sold Out</strong></p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
 </div>
+
 {% endblock %}

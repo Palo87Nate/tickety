@@ -1,22 +1,24 @@
-.row {
+.ticket {
     display: flex;
     justify-content: space-between;
     width: fit-content;
-}
-.column {
-    /* Optional */
-    padding: 10px;
-    /* border-right: 1px solid #ccc; */
-}
-
-.ticket {
+    height: 250px;
     margin: auto;
     border-radius: 20px;
+}
+
+.small-row {
+    display: flex;
+    justify-content: space-between;
+}
+.half {
+    width: 50%;
 }
 
 .content {
     width: 70%;
     border-radius: 20px;
+    padding: 20px;
 }
 
 .security {

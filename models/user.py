@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from .base_model import BaseModel
 from . import Session as session
 from sqlalchemy import Column, String

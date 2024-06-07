@@ -30,6 +30,7 @@ class EventForm(FlaskForm):
     places = IntegerField('Number of places', validators=[InputRequired()])
     details = TextAreaField('Describe your event', validators=[InputRequired()])
     t_price = IntegerField('Ticket Price', validators=[InputRequired()])
+    emage = FileField('Image')
     submit = SubmitField('Add Event')
 
 class TicketForm(FlaskForm):

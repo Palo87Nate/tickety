@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from .base_model import BaseModel
 from sqlalchemy import Column, String, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
