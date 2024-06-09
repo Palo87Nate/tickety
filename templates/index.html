@@ -3,19 +3,56 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 <div class="container">
-	<h1>Welcome back to Tickety</h1>
-	<p>Your one-stop platform for creating and managing your event tickets.</p>
-	<a href="{{ url_for('routes.create_event_view') }}"><button class="btn">New Event</button></a>
+	<h1>Tickety</h1>
+	<p>Helping you sell your tickets to the world.</p>
+	<a href="{{ url_for('routes.create_event_view') }}">
+		<button class="btn">
+			New Event
+		</button>
+	</a>
 </div>
 {% else %}
 <div class="container">
-	<h1>Welcome to Tickety</h1>
-	<p>Make your event reservations in only a few clicks</p>
-	<a href="{{ url_for('routes.browse_events') }}"><button class="btn">Find An Event</button></a>
+	<h1>Tickety</h1>
+	<p>A place where making reservations is asfast and easy as a few clicks</p>
+	<a href="{{ url_for('routes.browse_events') }}">
+		<button class="btn">
+			Find An Event
+		</button>
+	</a>
 </div>
 {% endif %}
 
 <section class="container">
-	<h1>Browse Events</h1>
+	<a class="event-card" href="{{ url_for('routes.browse_events') }}">
+		<div>
+			<div class="card-image"
+				style="background-image: url();">
+			</div>
+			<div class="green card-text center">
+				<p><strong>Browse Events</strong></p>
+			</div>
+		</div>
+	</a>
+	<a class="event-card" href="{{ url_for('routes.login') }}">
+		<div>
+			<div class="card-image"
+				style="background-image: url();">
+			</div>
+			<div class="green card-text center">
+				<p><strong>Login To Add An Event</strong></p>
+			</div>
+		</div>
+	</a>
+	<a class="event-card" href="{{ url_for('routes.ticket_search') }}">
+		<div>
+			<div class="card-image"
+				style="background-image: url();">
+			</div>
+			<div class="green card-text center">
+				<p><strong>Find Your Ticket</strong></p>
+			</div>
+		</div>
+	</a>
 </section>
 {% endblock %}

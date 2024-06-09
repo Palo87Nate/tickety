@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Login - Tickety{% endblock %}
+{% block content %}
+<div class="mid">
+    <h1 class="center">Enter the details on your ticket</h1>
+    <div class="center">
+        <form method="POST" action="{{ url_for('routes.ticket_search') }}">
+            {{ form.hidden_tag() }}
+            <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
+            <p>{{ form.lname.label }}<br>{{ form.lname(class="form-text") }}</p>
+            <div class="center">
+                {{ form.submit(class="btn") }}
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

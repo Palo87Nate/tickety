@@ -7,6 +7,7 @@ from .models.storage import Session
 from .models import *
 from flask_cors import CORS
 from . import routes
+from flask_mail import Mail
 from .routes import bp
 
 app = Flask(__name__)
@@ -28,6 +29,8 @@ def load_user(user_id):
     session.close()
     """Close the database session"""
     return user
+
+mail = Mail(app)
 
 app.register_blueprint(bp)
 if __name__ == "__main__":

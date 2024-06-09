@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/objects.css?{{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="/static/styles/ticket.css?{{ cache_id }}">
     <script type="text/javascript" src="/static/scripts/index.js?{{ cache_id }}"></script>
+    <script src="https://kit.fontawesome.com/d22d467c9c.js" crossorigin="anonymous"></script>
     <link rel="icon" href="/static/images/icon.png?{{ cache_id }}" />
 </head>
 
@@ -26,6 +27,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('routes.browse_events') }}">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('routes.browse_events') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('routes.browse_events') }}">Contact Us</a>
                 </li>
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">

@@ -40,3 +40,8 @@ class TicketForm(FlaskForm):
     pnumber = StringField('Phone Number', validators=[InputRequired(), Length(min=10, max=15)])
     submit = SubmitField('Get Ticket')
 
+class TiketSearchForm(FlaskForm):
+    email = EmailField('Enter Your Email Address', validators=[InputRequired()])
+    lname = StringField('Enter Your Last Name', validators=[InputRequired()])
+    submit = SubmitField('Get Ticket')
+

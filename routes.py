@@ -1,14 +1,15 @@
 #!/usr/bin/python3
-from flask import render_template, redirect, url_for, flash, send_file, request, Blueprint
+from flask import render_template, redirect, url_for, flash, send_file, request, Blueprint, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User, Event, Ticket, Session as session, storage
 from .models.storage import create_event
-from .forms import RegistrationForm, LoginForm, EventForm, TicketForm
+from .forms import *
 from sqlalchemy.orm.exc import NoResultFound
 from math import ceil
 from datetime import datetime
-import uuid
-import io
+from flask_mail import Mail, Message
+from .files import generate_pdf_ticket
+import uuid, io, os
 
 bp = Blueprint('routes', __name__)
 
@@ -125,6 +126,24 @@ def confirm_ticket(event_id, ticket_id):
     ticket = session.query(Ticket).get(ticket_id)
     formatted_date = event.date.strftime('%d-%b')
     formatted_time = event.time.strftime('%H:%M')
+
+    event_name = event.ename
+    file_name = f"{event_name}_Ticket_{ticket_id}.pdf"
+    file_path = f"/tmp/{file_name}"
+    generate_pdf_ticket(event_name, ticket_id, file_path)
+
+    email = ticket.email
+
+    msg = Message("Your Ticket for {}".format(event_name),
+                    recipients=[email])
+    msg.body = "Here is your ticket for the event: {}".format(event_name)
+    with bp.open_resource(file_path) as fp:
+        msg.attach(file_name, "application/pdf", fp.read())
+
+    current_app.extensions['mail'].send(msg)
+
+    os.remove(file_path)
+
     session.close()
     
     # Pass event and ticket details to the confirmation template
@@ -168,3 +187,17 @@ def browse_events():
         total_pages = 1
 
     return render_template('events.html', events=events, page=page, total_pages=total_pages)
+
+@bp.route('/ticket_search', methods=['GET', 'POST'], strict_slashes=False)
+def ticket_search():
+    form = TiketSearchForm()
+    if form.validate_on_submit():
+        ticket = session.query(Ticket).filter_by(lname=form.lname.data).first()
+        if ticket and ticket.email == form.email.data:
+            event_id = ticket.event_id
+            ticket_id=ticket.id
+            return (url_for('routes.confirm_ticket', event_id=event_id, ticket_id=ticket_id))
+        else:
+            flash('No ticket with the provided info was found, please try again or contact our support team.', 'danger')
+    return render_template('ticket-search.html', title='Search Ticket', form=form)
+
