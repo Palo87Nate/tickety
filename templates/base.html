@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/styles/styles.css?{{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/text.css?{{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="/static/styles/objects.css?{{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="/static/styles/ticket.css?{{ cache_id }}">
     <script type="text/javascript" src="/static/scripts/index.js?{{ cache_id }}"></script>
@@ -15,7 +16,9 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">T</a>
+        <a href="{{ url_for('routes.index') }}">
+            <img src="/static/images/logo.svg {{ cache_id }}" alt="Tickety">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,10 +32,10 @@
                     <a class="nav-link" href="{{ url_for('routes.browse_events') }}">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('routes.browse_events') }}">About</a>
+                    <a class="nav-link" href="{{ url_for('routes.about') }}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('routes.browse_events') }}">Contact Us</a>
+                    <a class="nav-link" href="#footer">Contact Us</a>
                 </li>
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
@@ -53,16 +56,41 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
-        <p>Tickety2024 by DevPalo</p>
+    <footer class="list-3" id="footer">
+        <div>
+          <p>Services</p>
+        <ul>
+            <li><a href="{{ url_for('routes.login') }}">Event Creation</a></li>
+            <li><a href="{{ url_for('routes.browse_events') }}">Ticket Purchase</a></li>
+            <li><a href="{{ url_for('routes.ticket_search') }}">Ticket Fnder</a></li>
+        </ul>  
+        </div>
+
+        <div>
+            <p>Company</p>
+            <ul>
+            <li><a href="{{ url_for('routes.about') }}">About Us</a></li>
+            <li>
+                <p>Connect</p>
+                <a href="www.linkedin.com/in/nathan-nkweto"><i class="font-s fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Palo87Nate"><i class="font-s fa-brands fa-square-github"></i></a>
+                <a href="https://x.com/NathanNkweto"><i class="font-s fa-brands fa-square-x-twitter"></i></a>
+            </li>
+        </ul>
+        </div>
+        
+        <div>
+            <p>Contact</p>
+            <form method="POST" action="{{ url_for('routes.contact') }}">
+                {{ contact_form.hidden_tag() }}
+                <p>{{ contact_form.email(class="form-text") }}</p>
+                <p>{{ contact_form.message(class="form-text") }}</p>
+                <p>{{ contact_form.submit(class="btn") }}</p>
+            </form>
+        </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="static/scripts/index.js?{{ cache_id }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

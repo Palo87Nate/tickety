@@ -4,7 +4,7 @@
 <div class="mid">
     <h1 class="center">Enter your login details</h1>
     <div class="center">
-        <form method="POST" action="{{ url_for('routes.login') }}">
+        <form class="form-page" method="POST" action="{{ url_for('routes.login') }}">
             {{ form.hidden_tag() }}
             <p>{{ form.email.label }}<br>{{ form.email(class="form-text") }}</p>
             <p>{{ form.password.label }}<br>{{ form.password(class="form-text") }}</p>

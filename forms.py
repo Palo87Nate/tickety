@@ -41,7 +41,13 @@ class TicketForm(FlaskForm):
     submit = SubmitField('Get Ticket')
 
 class TiketSearchForm(FlaskForm):
-    email = EmailField('Enter Your Email Address', validators=[InputRequired()])
+    event_name = StringField('Event', validators=[InputRequired()])
+    fname = StringField('Enter Your First Name', validators=[InputRequired()])
     lname = StringField('Enter Your Last Name', validators=[InputRequired()])
     submit = SubmitField('Get Ticket')
+
+class ContactForm(FlaskForm):
+    email = EmailField('Email Address', validators=[InputRequired()], render_kw={"placeholder": "email address"})
+    message = TextAreaField('Message', validators=[InputRequired()], render_kw={"placeholder": "message"})
+    submit = SubmitField('Send Message')
 

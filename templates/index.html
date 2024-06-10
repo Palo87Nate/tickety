@@ -1,58 +1,92 @@
 {% extends "base.html" %}
 {% block title %}Your Ticket - My App{% endblock %}
 {% block content %}
-{% if current_user.is_authenticated %}
-<div class="container">
-	<h1>Tickety</h1>
-	<p>Helping you sell your tickets to the world.</p>
+
+<div class="cov-img list-2b center" id="cov-img" style="background-image: url({{ url_for('routes.bg_image') }});">
+	<div class="">
+		{% if current_user.is_authenticated %}
+	<h1 class="font-xxl font-b font-green">Tickety</h1>
+	<p class="font-l">Helping you sell your tickets to the world.</p>
 	<a href="{{ url_for('routes.create_event_view') }}">
 		<button class="btn">
 			New Event
 		</button>
 	</a>
-</div>
-{% else %}
-<div class="container">
-	<h1>Tickety</h1>
-	<p>A place where making reservations is asfast and easy as a few clicks</p>
+	{% else %}
+	<h1 class="font-xxl font-b font-green">Tickety</h1>
+	<p class="font-l">A place where making reservations is as fast and easy as a few clicks</p>
 	<a href="{{ url_for('routes.browse_events') }}">
 		<button class="btn">
 			Find An Event
 		</button>
 	</a>
+	{% endif %}
+	</div>
+	
 </div>
-{% endif %}
 
-<section class="container">
+<section>
+	<h1 class="center">Trending Events</h1>
+	<div class="list-3b center">
+		{% for event in top_events %}
+		<div class="">
+			<a class="event-card" href="{{ url_for('routes.event_details', event_id=event.id) }}">
+			<div>
+				<div class="card-image"
+					style="background-image: url('{{ url_for('routes.get_emage', event_id=event.id) }}');">
+				</div>
+				<div class="green card-text center">
+					<p>{{ event.ename }}</p>
+					<p><strong>Price:</strong> ${{ event.t_price }}</p>
+				</div>
+			</div>
+		</a>
+		</div>
+		
+		{% endfor %}
+	</div>
+	<a class="font-green center" href="{{ url_for('routes.browse_events') }}">More Events</a>
+</section>
+
+<section class="list-3b green center">
 	<a class="event-card" href="{{ url_for('routes.browse_events') }}">
 		<div>
-			<div class="card-image"
-				style="background-image: url();">
+			<div class="card-image" style="background-image: url(static/images/browse.jpg);">
 			</div>
-			<div class="green card-text center">
+			<div class="white card-text center">
 				<p><strong>Browse Events</strong></p>
 			</div>
 		</div>
 	</a>
 	<a class="event-card" href="{{ url_for('routes.login') }}">
 		<div>
-			<div class="card-image"
-				style="background-image: url();">
+			<div class="card-image" style="background-image: url(static/images/login.jpg);">
 			</div>
-			<div class="green card-text center">
+			<div class="white card-text center">
 				<p><strong>Login To Add An Event</strong></p>
 			</div>
 		</div>
 	</a>
 	<a class="event-card" href="{{ url_for('routes.ticket_search') }}">
 		<div>
-			<div class="card-image"
-				style="background-image: url();">
+			<div class="card-image" style="background-image: url(static/images/search.jpg);">
 			</div>
-			<div class="green card-text center">
+			<div class="white card-text center">
 				<p><strong>Find Your Ticket</strong></p>
 			</div>
 		</div>
 	</a>
+</section>
+
+<section class="list-2 center">
+	<div>
+	<h1 class="center font-xl">About This Project</h1>
+	<p class="font-m">
+		{{ about_snippet }} <a class="font-green" href="{{ url_for('routes.about') }}">Read More</a>
+	</p>	
+	</div>
+	<div class="abt-img">
+	<img src="{{ url_for('routes.about_image') }}" alt="Team">
+	</div>
 </section>
 {% endblock %}

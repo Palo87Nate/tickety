@@ -4,7 +4,7 @@
 <div class="mid">
     <h1 class="center">Please Provide Your Company's Details</h1>
     <div class="center">
-        <form method="POST" action="{{ url_for('routes.register') }}">
+        <form class="form-page" method="POST" action="{{ url_for('routes.register') }}">
             {{ form.hidden_tag() }}
             <p>{{ form.name.label }}<br>{{ form.name(class="form-text") }}</p>
             <p>{{ form.password.label }}<br>{{ form.password(class="form-text") }}</p>

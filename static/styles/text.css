@@ -1,0 +1,34 @@
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    color: aqua!important;
+}
+.font-s {
+    font-size: 28px;
+}
+
+.font-m {
+    font-size: 38px;
+}
+
+.font-l {
+    font-size: 45px;
+}
+
+.font-xl {
+    font-size: 55px;
+}
+
+.font-xxl {
+    font-size: 70px;
+}
+
+.font-b {
+    font-weight: bold;
+}
+
+.font-green {
+    color: #6b8e23ff !important;;
+}

@@ -6,7 +6,7 @@
 <div class="mid">
 	<h1 class="center">Start Your Event!</h1>
 	<div class="center">
-		<form method="POST" action="{{ url_for('routes.create_event_view') }}" enctype="multipart/form-data">
+		<form class="form-page" method="POST" action="{{ url_for('routes.create_event_view') }}" enctype="multipart/form-data">
 			{{ form.hidden_tag() }}
 			<p>{{ form.ename.label }}<br>{{ form.ename(class="form-text") }}</p>
 			<div class="small-row">

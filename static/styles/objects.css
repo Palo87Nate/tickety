@@ -1,20 +1,17 @@
 footer {
     clear: both;
-    background: #6b8e23ff!important;
+    background: #484848;
     bottom: 0;
     width: 100%;
     color: #ffffff!important;
-    height: 150px;
-}
-footer p {
-    text-align: center;
+    height: 250px;
 }
 
 nav {
     position: sticky!important;
     top: 0;
     background: #6b8e23ff!important;
-    margin-bottom: 20px;
+    z-index: 1000;
 }
 
 .btn {

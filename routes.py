@@ -9,14 +9,20 @@ from math import ceil
 from datetime import datetime
 from flask_mail import Mail, Message
 from .files import generate_pdf_ticket
-import uuid, io, os
+from .content import *
+import uuid, io, os, flask
 
 bp = Blueprint('routes', __name__)
 
-@bp.route('/')
+@bp.context_processor
+def inject_form():
+    contact_form = ContactForm()
+    return {'contact_form': contact_form}
+
+@bp.route('/', methods=['GET', 'POST'], strict_slashes=False)
 def index():
     events = session.query(Event).all()
-    return render_template('index.html', events=events)
+    return render_template('index.html', events=events, about_snippet=about_snippet, top_events=top_events)
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -102,8 +108,13 @@ def buy_ticket(event_id):
         email = form.email.data
         pnumber = form.pnumber.data
         event_id = event_id
+
+        existing_ticket = session.query(Ticket).filter_by(fname=fname, lname=lname, event_id=event_id).first()
+        if existing_ticket:
+            flash('You have already bought a ticket for this event.', 'danger')
+
         ticket = Ticket(fname=fname, lname=lname, email=email, pnumber=pnumber, event_id=event_id)
-            
+        
         try:
             session.add(ticket)
             session.commit()
@@ -192,12 +203,44 @@ def browse_events():
 def ticket_search():
     form = TiketSearchForm()
     if form.validate_on_submit():
-        ticket = session.query(Ticket).filter_by(lname=form.lname.data).first()
-        if ticket and ticket.email == form.email.data:
-            event_id = ticket.event_id
-            ticket_id=ticket.id
-            return (url_for('routes.confirm_ticket', event_id=event_id, ticket_id=ticket_id))
+        event = session.query(Event).filter_by(event_name=form.event_name.data).first()
+        if event:
+            ticket = session.query(Ticket).filter_by(event_id=event.id, lname=form.lname.data, fname=form.fname.data).first()
+            if ticket and ticket.email == form.email.data:
+                event_id = ticket.event_id
+                ticket_id=ticket.id
+                return (url_for('routes.confirm_ticket', event_id=event_id, ticket_id=ticket_id))
+            else:
+                flash('No ticket with the provided info was found, please try again or contact our support team.', 'danger')
         else:
-            flash('No ticket with the provided info was found, please try again or contact our support team.', 'danger')
+            flash('You have already bought a ticket for this event.', 'danger')
     return render_template('ticket-search.html', title='Search Ticket', form=form)
 
+@bp.route('/about')
+def about():
+    return render_template('about.html', about_full=about_content)
+
+@bp.route('/bgimage')
+def bg_image():
+    if current_user.is_authenticated:
+        return send_file('static/images/bg1.jpg', mimetype='image/jpeg')
+    else:
+        return send_file('static/images/bg2.jpg', mimetype='image/jpeg')
+
+@bp.route('/abt-img')
+def about_image():
+    return send_file('static/images/abt.jpg', mimetype='image/jpeg')
+
+@bp.route('/contact', methods=['POST'])
+def contact():
+    contact_form = ContactForm()
+    if contact_form.validate_on_submit():
+
+        sender = contact_form.email.data
+        message = contact_form.message.data
+
+        msg = Message(sender=sender, recipients=['nathannkweto87@gmai.com'])
+        msg.body = message
+        flask.current_app.extensions['mail'].send(msg)
+        flash('Message sent successfully', 'success')
+        return redirect(url_for('routes.index'))
