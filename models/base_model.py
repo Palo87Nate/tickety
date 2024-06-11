@@ -3,10 +3,8 @@ from datetime import datetime
 import uuid
 from sqlalchemy import Column, String, DateTime, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from . import Session
+from . import Session, SQLALCHEMY_DATABASE_URI
 
-# Define the SQLALCHEMY_DATABASE_URI variable to specify the database connection
-SQLALCHEMY_DATABASE_URI = 'sqlite:///tickety.db'
 # Create a database engine using the SQLALCHEMY_DATABASE_URI
 engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 Base = declarative_base()
