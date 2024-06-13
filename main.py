@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from flask import Flask
 from flask_login import LoginManager
-from .config import Config
+from config import Config
 from .auth import login_manager
 from .models.storage import Session
 from .models import *
