@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 from flask import Flask
 from flask_login import LoginManager
-from config import Config
-from .auth import login_manager
-from .models.storage import Session
-from .models import *
+from views.config import Config
+from views.auth import login_manager
+from models.storage import Session
+from models import *
 from flask_cors import CORS
-from . import routes
+from views import routes
 from flask_mail import Mail
-from .routes import bp
+from views.routes import bp
 
 app = Flask(__name__)
 """Create a Flask application instance"""
