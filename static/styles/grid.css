@@ -8,9 +8,8 @@
     width: 100%;
     display: grid;
     gap: 3%;
-    padding: 20px;
+    padding: 10px;
     grid-template-columns: repeat(2, 1fr);
-    clear: both;
 }
 
 .list {
