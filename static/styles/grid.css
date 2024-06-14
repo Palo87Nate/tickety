@@ -59,3 +59,31 @@
     grid-template-columns: repeat(2, 0.3fr);
     padding: 40px;
 }
+
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .list {
+        grid-template-columns: 1fr;
+    }
+
+    .list-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .list-3b {
+        grid-template-columns: 1fr;
+    }
+
+    .list-2 {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .list-2b {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
