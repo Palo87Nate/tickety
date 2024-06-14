@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from .routes import bp
+from routes import bp
 class Config:
     SECRET_KEY = '870198AO72ZN63'
     MAIL_SERVER = 'smtp.gmail.com'

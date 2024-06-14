@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 from flask import render_template, redirect, url_for, flash, send_file, request, Blueprint, current_app
 from flask_login import current_user, login_user, logout_user, login_required
-from .models import User, Event, Ticket, Session as session, storage
-from .models.storage import create_event
-from .forms import *
+from models import User, Event, Ticket, Session as session, storage
+from models.storage import create_event
+from forms import *
 from sqlalchemy.orm.exc import NoResultFound
 from math import ceil
 from datetime import datetime
 from flask_mail import Mail, Message
-from .files import generate_pdf_ticket
-from .content import *
+from files import generate_pdf_ticket
+from content import *
 import uuid, io, os, flask
 
 bp = Blueprint('routes', __name__)
