@@ -1,4 +1,4 @@
-from models import User, Event, Ticket, Session as session
+from .models import User, Event, Ticket, Session as session
 from sqlalchemy import func
 
 about_content = """
