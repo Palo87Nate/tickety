@@ -1,0 +1,12 @@
+.white {
+    background-color: rgb(212, 231, 172);
+    color: #484848;
+}
+.green {
+    background: #6b8e23ff;
+    color: white;
+}
+
+.green-outline {
+    border: 1px solid #6b8e23ff;
+}

@@ -1,0 +1,61 @@
+.column {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 10px;
+}
+
+.row {
+    width: 100%;
+    display: grid;
+    gap: 3%;
+    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    clear: both;
+}
+
+.list {
+    gap: 3%;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
+}
+
+.list-3 {
+    gap: 5%;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+    object-fit: contain;
+}
+
+.list-3b {
+    gap: 3%;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 0.2fr);
+    padding: 20px;
+    object-fit: contain;
+}
+
+.list-2 {
+    gap: 5%;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 0.4fr);
+    padding: 40px;
+}
+
+.list-2b {
+    gap: 20%;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 0.3fr);
+    padding: 40px;
+}

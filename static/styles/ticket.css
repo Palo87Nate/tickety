@@ -3,7 +3,6 @@
     justify-content: space-between;
     width: fit-content;
     height: 250px;
-    margin: auto;
     border-radius: 20px;
 }
 
@@ -11,6 +10,7 @@
     display: flex;
     justify-content: space-between;
 }
+
 .half {
     width: 50%;
 }
@@ -23,15 +23,6 @@
 
 .security {
     width: 30%;
-}
-
-.green {
-    background: #6b8e23ff;
-    color: white;
-}
-
-.white {
-    background: rgb(212, 231, 172);
 }
 
 .qr-code {
