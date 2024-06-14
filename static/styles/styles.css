@@ -37,6 +37,8 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: auto;
+    margin: auto;
 }
 
 .round-corners {
