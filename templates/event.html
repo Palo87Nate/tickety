@@ -6,10 +6,10 @@
 	<h1 class="center"><strong>{{ event.ename }}</strong></h1>
 	<div class="center">
 		<div class="row">
-			<div class="card-image half"  
-			style="background-image: url('{{ url_for('routes.get_emage', event_id=event.id) }}');">
-			</div>
-			<div class="half">
+			<div class="card-image"
+					style="background-image: url('{{ url_for('routes.get_emage', event_id=event.id) }}');">
+				</div>
+			<div class="">
 				<div class="column">
 					<div class="green-outline padding-15 round-corners">
 						<h2>{{ event.details }}</h2>
